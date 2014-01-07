@@ -37,9 +37,12 @@ module.exports = function(grunt) {
   // * for minimizing images in the dist task
   //   `npm install --save-dev grunt-contrib-imagemin`
   //
-  // * for using images based css sprites
+  // * for using images based CSS sprites (http://youtu.be/xD8DW6IQ6r0)
   //   `npm install --save-dev grunt-fancy-sprites`
   //   `bower install --save fancy-sprites-scss`
+  //
+  // * for automatically adding CSS vendor prefixes (autoprefixer)
+  //   `npm install --save-dev grunt-autoprefixer`
   //
 
   var Helpers = require('./tasks/helpers'),
@@ -118,14 +121,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test:browsers', "Run your app's tests in multiple browsers (see tasks/options/testem.js for configuration).", [
                      'clean:debug', 'build:debug', 'testem:ci:browsers' ]);
 
-  grunt.registerTask('test:server', "Start a Testem test server and the standard development server.", [
-                     'clean:debug',
-                     'build:debug',
-                     'testem:run:basic',
-                     'expressServer:debug',
-                     'watch'
-                     ]);
-
   // Worker tasks
   // =================================
 
@@ -203,8 +198,8 @@ module.exports = function(grunt) {
                      'sass:compile',
                      'less:compile',
                      'stylus:compile',
-                     'copy:cssToResult'
-                     // ToDo: Add 'autoprefixer'
+                     'copy:cssToResult',
+                     'autoprefixer:app'
                      ]));
 
   // Index HTML
